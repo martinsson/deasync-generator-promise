@@ -22,8 +22,16 @@ function deasyncPromise(fct) {
     };
 };
 
+/**
+ * Ex: let syncGreetingFunction = deasync.deasyncGenerator(function*() {
+            return yield Promise.resolve("hello")
+        })
+ * @param generatorFunction
+ * @returns {Function}
+ */
+
 function deasyncGenerator(generatorFunction) {
-    return makeSync(function () {
+    return deasyncPromise(function () {
         return co(generatorFunction);
     });
 };
